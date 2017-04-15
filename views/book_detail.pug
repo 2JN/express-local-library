@@ -10,7 +10,7 @@ block content
   p #[strong Genre:] 
     each val in book.genre
       a(href= val.url) #{val.name}
-      | ,
+      | , 
   
   div(style= 'margin-left:20px; margin-top:20px')
     h4 Copies
@@ -32,3 +32,9 @@ block content
     
     else
       p There are no copies for this book in the library
+  
+  hr
+  p
+    a(href=book.url+'/delete') Delete Book
+  p
+    a(href=book.url+'/update') Update Book

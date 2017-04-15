@@ -36,4 +36,16 @@ AuthorSchema
       : '';
   });
 
+AuthorSchema
+  .virtual('display_date_of_birth')
+  .get(function() {
+    return moment(this.date_of_birth).format('MM-DD-YYYY');
+  });
+
+AuthorSchema
+  .virtual('display_date_of_death')
+  .get(function() {
+    return moment(this.date_of_death).format('MM-DD-YYYY');
+  });
+
 module.exports = mongoose.model('Author', AuthorSchema);
