@@ -2,6 +2,7 @@ var Genre = require('../models/genre');
 var Book = require('../models/book');
 
 var async = require('async');
+var debug = require('debug')('genre');
 
 exports.genre_list = function(req, res, next) {
   Genre.find()
@@ -70,7 +71,7 @@ exports.genre_create_post = function(req, res, next) {
   } else {
     Genre.findOne({ name: req.body.name })
       .exec( function(err, found_genre) {
-        console.log('found genre:' + found_genre);
+        debug('found genre:' + found_genre);
         if (err) { return next(err); }
 
         if (found_genre) {

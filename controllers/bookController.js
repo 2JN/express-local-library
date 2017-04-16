@@ -4,6 +4,7 @@ var Genre = require('../models/genre');
 var BookInstance = require('../models/bookinstance');
 
 var async = require('async');
+var debug = require('debug')('book');
 
 exports.index = function(req, res, next) {
   async.parallel(
@@ -127,7 +128,7 @@ exports.book_create_post = function(req, res, next) {
       : req.body.genre.split(',')
   });
 
-  console.log('Book:' + book);
+  debug('Book:' + book);
 
   var errors = req.validationErrors();
   if (errors) {

@@ -5,18 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var debug = require('debug')('database');
+var compression = require('compression');
+var helmet = require('helmet');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 
 var app = express();
+app.use(helmet());
 
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://2jn:anarqu!@ds155130.mlab.com:55130/local_library';
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', debug.bind(debug, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
