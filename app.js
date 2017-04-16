@@ -17,7 +17,8 @@ var app = express();
 app.use(helmet());
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://2jn:anarqu!@ds155130.mlab.com:55130/local_library';
+var mongoDB = process.env.MONGODB_URI
+  || 'mongodb://2jn:anarqu!@ds155130.mlab.com:55130/local_library';
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on('error', debug.bind(debug, 'MongoDB connection error:'));
